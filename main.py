@@ -1,10 +1,12 @@
-import json
+
 import os
 from pathlib import Path
 from anthropic import Anthropic as anth
 from anthropic.types import Message
-from tools import get_ranked_player_details
-from toolschema import ALL_TOOLS
+from functions.tools import get_ranked_player_details
+from functions.toolschema import app_tools  
+
+
 
 client = anth(
     api_key=os.environ.get("ANTHROPIC_API_KEY"),
@@ -41,7 +43,7 @@ def mainChat(messages):
         model="claude-haiku-4-5-20251001",
         max_tokens=1000,
         temperature=0,
-        tools = ALL_TOOLS,
+        tools = app_tools,
         messages=messages,
     )
     return response

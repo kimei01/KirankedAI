@@ -1,3 +1,6 @@
+import anthropic
+
+
 def format_playtime(ms):
     if ms is None: 
         return " No games played"
@@ -55,3 +58,23 @@ def elo_tier(elo):
         return "Coal I"
     else:
         return "Unrated"
+    
+
+def rate(numerator, denominator):
+    if not denominator:
+        return 0.0
+    return round(numerator / denominator * 100, 2)
+
+def get_country_code(user_input: str) -> str | None:
+    client = anthropic.Anthropic()
+    response = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=10,
+        messages=[{
+            "role": "user",
+            "content": f'Convert "{user_input}" to a lowercase ISO 3166-1 alpha-2 country code. Reply with ONLY the 2-letter code, nothing else. If unrecognized, reply with "unknown".'
+        }]
+    )
+    
+    code = response.content[0].text.strip()
+    return None if code == "unknown" else code

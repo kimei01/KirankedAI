@@ -1,0 +1,43 @@
+import dataclasses
+
+class playerinfo:
+    nickname: str 
+    uuid: str
+    country: str
+    tier: str
+    elo: int
+    rank: int
+    season_highest_elo: int
+    season_lowest_elo: int
+    join_date: str
+    last_online: str
+class seasonstats:
+    best_time: str
+    playtime: str
+    best_winstreak: int
+    matches: int
+    wins: int
+    forfeits: int
+    completions: int
+    winrate: float
+    forfeit_rate: float
+class totalstats: 
+    best_time: str
+    playtime: str
+    best_winstreak: int
+    matches: int
+    wins: int
+    forfeits: int
+    completions: int
+    winrate: float
+    forfeit_rate: float
+class playerinfosummary: 
+    playeruuid: str
+    nickname: str
+    elo: int
+    rank: int
+    tier: str
+    country: str
+    ranked_wins: str
+    
+    

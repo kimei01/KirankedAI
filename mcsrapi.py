@@ -11,9 +11,12 @@ class MCSRRankedAPI:
         url = f"{self.api}users/{user1}"
         response = req.get(url, timeout=5)
         return response.json()
-    def get_official_leaderboard(self, user): 
-        url = f"https://mcsrranked.com/stats/{user}"
-        return url
+    def get_user_matches(self, count, season, sort): 
+        if season is not None: 
+            response = req.get(f"{self.api}users/matches?count={count}&season={season}&sort={sort}", timeout=5)
+        else: 
+            response = req.get(f"{self.api}users/matches?count={count}&sort={sort}", timeout=5)
+        return response.json()
     def get_current_season(self): 
         response = req.get(f"{self.api}leaderboard", timeout=5)
         return response.json()['data']['season']['number']
@@ -27,12 +30,21 @@ class MCSRRankedAPI:
         response = req.get(f"{self.api}leaderboard?country={country}", timeout=5)
         return response.json()
     
-    def get_record_leaderboard(self): 
-        response = req.get(f"{self.api}record-leaderboard", timeout=5)
+    def get_record_leaderboard(self, season): 
+        response = req.get(f"{self.api}record-leaderboard?season={season}", timeout=5)
         return response.json()
-    def get_matchup(self, user1, user2):
-        response = req.get(f"{self.api}users/{user1}/versus/{user2}", timeout = 5)
+    def get_matchup(self, user1, user2, season):
+        if season is not None: 
+            response = req.get(f"{self.api}users/{user1}/versus/{user2}?season={season}", timeout = 5)
+        else:
+            response = req.get(f"{self.api}users/{user1}/versus/{user2}", timeout = 5)
         return response.json()
-    def get_match(self, user1, user2, count, season):
-        response = req.get(f"{self.api}users/{user1}/versus/{user2}/matches", timeout = 5)
+    def get_matches(self, user1, user2, count, season):
+        if season is not None: 
+            response = req.get(f"{self.api}users/{user1}/versus/{user2}/matches?count={count}&season={season}", timeout = 5)
+        else:
+            response = req.get(f"{self.api}users/{user1}/versus/{user2}/matches?count={count}", timeout = 5)
+        return response.json()
+    def match_details(self, match_id): 
+        response = req.get(f"{self.api}matches/{match_id}", timeout = 5)
         return response.json()
