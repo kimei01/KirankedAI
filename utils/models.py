@@ -1,5 +1,4 @@
-import dataclasses
-
+from pydantic import BaseModel
 class playerinfo:
     nickname: str 
     uuid: str
@@ -40,4 +39,5 @@ class playerinfosummary:
     country: str
     ranked_wins: str
     
-    
+class Question(BaseModel):
+    question: str 
