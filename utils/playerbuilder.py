@@ -1,7 +1,7 @@
 import requests as req
 from utils.calculatorUtils import elo_tier, format_time, format_playtime, rate
 import mcsrapi
-from models import playerinfo, seasonstats, totalstats, playerinfosummary
+from utils.models import playerinfo, seasonstats, totalstats, playerinfosummary
 from datetime import datetime
 
 def get_ranked_player_depth(user: str):

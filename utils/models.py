@@ -41,3 +41,4 @@ class playerinfosummary:
     
 class Question(BaseModel):
     question: str 
+    history: list[dict] = []

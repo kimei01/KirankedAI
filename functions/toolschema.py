@@ -1,7 +1,7 @@
 from anthropic.types import ToolParam
 
 
-app_tools = ToolParam[
+app_tools: list[ToolParam]= [
   {
     "name": "show_season",
     "description": "Returns current season information including season number, start/end dates, days since start, and days until end.",

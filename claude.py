@@ -1,19 +1,14 @@
 
 import os
-from pathlib import Path
 from anthropic import Anthropic as anth
 from anthropic.types import Message
-from functions.toolschema import app_tools  
-
+from functions.tools import tools_loader   
+from functions.toolschema import app_tools
 
 
 client = anth(
     api_key=os.environ.get("ANTHROPIC_API_KEY"),
 )
-messages = []
-#Loads tools for the session
-tools_loader = {tool.name: tool.fn for tool in app_tools}
-
 def add_user_message(messages, message):
     user_message = {
         "role": "user",
@@ -60,40 +55,21 @@ def mainChat(messages):
     )
     return response
 
-def claude():   
-    while True:
-        user_input = input("Enter a Question regarding MCSR Ranked: ")
-        if user_input.lower() == "exit":
-            break
-        if user_input.lower() == "continue":
-            add_user_message(messages, "Please continue your previous response.")
-        elif not user_input.strip():
-            continue
-        else: 
-            add_user_message(messages, user_input)
-
-        #If the conversation history exceeds 20 messages, keep only the last 20 to stay within context limits. 
-        if len(messages) > 20:
-            messages = messages[-20:]
-            #Checks if messages contains any text at all and if the first message is a tool result
-            while messages and messages[0]['content'][0]['type'] == ["tool_result"]:
-                messages = messages[1:]
-
-            
+def process_chat(question, history):  
+        add_user_message(history, question)
         # This loop keeps going until Claude stops asking for tools
         while True:
-            response = mainChat(messages)
-            add_assistant_message(messages, response)
+            response = mainChat(history)
+            add_assistant_message(history, response)
 
             if response.stop_reason == "end_turn": 
                 final_text = "".join([b.text for b in response.content if b.type == "text"])
-                print(f"\n {final_text}\n")
-                break # Exit the loop and wait for the next input()
+                return {"response": final_text, "history": history}
+                
             if response.stop_reason == "max_tokens":
                 final_text = "".join([b.text for b in response.content if b.type == "text"])
-                print(f"\n {final_text}")
-                print("\n Response reached the limit. Type 'continue' if you need the rest.")  
-                break # Exit the loop and wait for the next input()
+                return {"response": final_text, "history": history, "Error": "Response reached max token limit. Consider rephrasing for a more concise answer."}
+            
                 
             #Claude wants to use a tool
             if response.stop_reason == "tool_use":
@@ -124,13 +100,13 @@ def claude():
                             "is_error": is_error,
                         }
                         tool_results.append(tool_response_message)
-                add_tool_result_message(messages, tool_results)
+                add_tool_result_message(history, tool_results)
                 
                 
                 continue 
             if response.stop_reason not in ("tool_use", "end_turn", "max_tokens"):
-                print(f"\n Claude stopped unexpectedly with reason: {response.stop_reason}. Please try again.\n")
-                break 
+                return {"response": response.stop_reason}
+                
         
      
 

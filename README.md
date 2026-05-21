@@ -1,7 +1,7 @@
 > [!NOTE]
-> Currently a working CLI app. FastAPI backend and web frontend are in active development.
+> FastAPI backend complete. Plain HTML/CSS/JS frontend in active development.
 
-## Kiranked Web
+## KirankedAI
 A full-stack web app for the [MCSR Ranked](https://mcsrranked.com) Minecraft speedrunning community. Users can view a live leaderboard and ask natural language questions about player stats — powered by Claude AI.
 
 ## What is MCSR Ranked?
@@ -105,6 +105,6 @@ python main.py
 
 ## About this Project
 
-Kiranked Web evolved from [Kiranked](https://github.com/yourusername/kiranked), an existing Discord bot for MCSR Ranked stats. The goal is to bring the same functionality to the web with a richer UI and a natural language AI interface — so anyone in the community can ask questions about players and stats without needing to know any commands.
+Kiranked Web evolved from [Kiranked](https://github.com/kimei01/kiranked), an existing Discord bot for MCSR Ranked stats. The goal is to bring the same functionality to the web with a richer UI and a natural language AI interface — so anyone in the community can ask questions about players and stats without needing to know any commands.
 
 Built to learn FastAPI, the Anthropic Claude API, agentic AI patterns, and eventually React.

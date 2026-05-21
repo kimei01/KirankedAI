@@ -274,7 +274,16 @@ def analyze_recent_match(match_id: str ):
     return match_details
    
 
-
+tools_loader = { 
+    "show_season": show_season,
+    "get_ranked_player_details": get_ranked_player_details,
+    "get_user_recent_matches": get_user_recent_matches,
+    "leaderboard_player": leaderboard_player,
+    "leaderboard_bestTime": leaderboard_bestTime,
+    "playerversus_stats": playerversus_stats,
+    "playerversus_matches": playerversus_matches,
+    "analyze_recent_match": analyze_recent_match
+}
 
    
     
