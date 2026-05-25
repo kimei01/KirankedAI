@@ -1,5 +1,5 @@
 > [!NOTE]
-> FastAPI backend complete. Plain HTML/CSS/JS frontend in active development.
+> Functional FastAPI backend. Plain HTML/CSS/JS frontend in active development.
 
 ## KirankedAI
 A simple app for the [MCSR Ranked](https://mcsrranked.com) Minecraft speedrunning community. Users can view a live leaderboard and ask natural language questions about player stats, powered by Claude AI.
